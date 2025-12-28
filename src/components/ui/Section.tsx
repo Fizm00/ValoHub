@@ -21,11 +21,9 @@ const Section = forwardRef<HTMLElement, SectionProps>(({
 }, ref) => {
     const internalRef = useRef<HTMLElement>(null);
 
-    // Combine refs
     useImperativeHandle(ref, () => internalRef.current as HTMLElement);
 
     useGSAP(() => {
-        // Simple reveal animation for children
         gsap.fromTo(internalRef.current,
             { autoAlpha: 0, y: 50 },
             {

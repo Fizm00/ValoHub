@@ -4,7 +4,7 @@ import { CrosshairPreview } from '../components/crosshair/CrosshairPreview';
 import { parseCrosshairCode } from '../utils/crosshairParser';
 import type { CrosshairConfig } from '../data/crosshairs';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, Save, Play } from 'lucide-react';
+import { ArrowLeft, Save } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const AddProCrosshair = () => {

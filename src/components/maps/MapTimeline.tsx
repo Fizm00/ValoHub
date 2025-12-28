@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { motion } from 'framer-motion';
 import Section from '../ui/Section';
 import type { MapData } from '../../services/api';
@@ -28,13 +28,10 @@ const MapTimeline = ({ maps = [] }: MapTimelineProps) => {
         const groups: Record<string, string[]> = {};
 
         maps.forEach(map => {
-            // Parse date (YYYY-MM-DD) or default to 2020
             const year = map.releaseDate ? map.releaseDate.split('-')[0] : "2020";
             if (!groups[year]) groups[year] = [];
             groups[year].push(map.displayName);
         });
-
-        // Convert to array and sort
         const sortedGroups: TimelineGroup[] = Object.keys(groups)
             .sort((a, b) => parseInt(a) - parseInt(b))
             .map(year => ({
@@ -48,7 +45,6 @@ const MapTimeline = ({ maps = [] }: MapTimelineProps) => {
 
     return (
         <Section className="py-32 bg-valo-dark relative overflow-hidden">
-            {/* Background Decoration */}
             <div className="absolute right-0 top-0 w-1/2 h-full bg-gradient-to-l from-white/5 to-transparent pointer-events-none" />
 
             <div className="container mx-auto px-6 relative z-10">
@@ -76,7 +72,6 @@ const MapTimeline = ({ maps = [] }: MapTimelineProps) => {
                             transition={{ delay: idx * 0.1 }}
                             className="relative pl-12"
                         >
-                            {/* Dot on line */}
                             <div className="absolute -left-[9px] top-2 w-4 h-4 bg-valo-dark border-2 border-valo-red rounded-full" />
 
                             <div className="flex flex-col md:flex-row gap-4 md:items-baseline">

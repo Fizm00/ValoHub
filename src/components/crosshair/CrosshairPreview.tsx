@@ -4,11 +4,10 @@ import type { CrosshairConfig } from '../../data/crosshairs';
 
 interface CrosshairPreviewProps {
     config: CrosshairConfig;
-    scale?: number; // Scaling factor for better visibility in UI
+    scale?: number;
 }
 
 export const CrosshairPreview: React.FC<CrosshairPreviewProps> = ({ config, scale = 4 }) => {
-    // Helper to calculate scaled pixel values
     const px = (val: number) => `${val * scale}px`;
 
     const outlineStyle = (opacity: number = 1) =>
@@ -16,7 +15,6 @@ export const CrosshairPreview: React.FC<CrosshairPreviewProps> = ({ config, scal
 
     return (
         <div className="relative flex items-center justify-center w-full h-full pointer-events-none select-none">
-            {/* Center Dot */}
             {config.centerDot && (
                 <div
                     className="absolute bg-current z-20"
@@ -30,10 +28,8 @@ export const CrosshairPreview: React.FC<CrosshairPreviewProps> = ({ config, scal
                 />
             )}
 
-            {/* Inner Lines */}
             {config.innerLines.show && (
                 <>
-                    {/* Horizontal */}
                     <div
                         className="absolute bg-current z-10"
                         style={{
@@ -45,7 +41,6 @@ export const CrosshairPreview: React.FC<CrosshairPreviewProps> = ({ config, scal
                             alignItems: 'center'
                         }}
                     >
-                        {/* Left Line */}
                         <div style={{
                             width: px(config.innerLines.length),
                             height: '100%',
@@ -54,10 +49,8 @@ export const CrosshairPreview: React.FC<CrosshairPreviewProps> = ({ config, scal
                             filter: outlineStyle()
                         }} />
 
-                        {/* Gap (Offset) */}
                         <div style={{ width: px(config.innerLines.offset * 2), height: '100%' }} />
 
-                        {/* Right Line */}
                         <div style={{
                             width: px(config.innerLines.length),
                             height: '100%',
@@ -67,7 +60,6 @@ export const CrosshairPreview: React.FC<CrosshairPreviewProps> = ({ config, scal
                         }} />
                     </div>
 
-                    {/* Vertical */}
                     <div
                         className="absolute bg-current z-10 flex flex-col justify-between items-center"
                         style={{
@@ -76,7 +68,6 @@ export const CrosshairPreview: React.FC<CrosshairPreviewProps> = ({ config, scal
                             backgroundColor: 'transparent',
                         }}
                     >
-                        {/* Top Line */}
                         <div style={{
                             height: px(config.innerLines.length),
                             width: '100%',
@@ -85,10 +76,8 @@ export const CrosshairPreview: React.FC<CrosshairPreviewProps> = ({ config, scal
                             filter: outlineStyle()
                         }} />
 
-                        {/* Gap */}
                         <div style={{ height: px(config.innerLines.offset * 2), width: '100%' }} />
 
-                        {/* Bottom Line */}
                         <div style={{
                             height: px(config.innerLines.length),
                             width: '100%',
@@ -99,10 +88,8 @@ export const CrosshairPreview: React.FC<CrosshairPreviewProps> = ({ config, scal
                     </div>
                 </>
             )}
-            {/* Outer Lines */}
             {config.outerLines.show && (
                 <>
-                    {/* Horizontal */}
                     <div
                         className="absolute bg-current z-10"
                         style={{
@@ -133,7 +120,6 @@ export const CrosshairPreview: React.FC<CrosshairPreviewProps> = ({ config, scal
                         }} />
                     </div>
 
-                    {/* Vertical */}
                     <div
                         className="absolute bg-current z-10 flex flex-col justify-between items-center"
                         style={{

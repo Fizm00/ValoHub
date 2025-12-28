@@ -11,19 +11,15 @@ interface MapCardProps {
 const MapCard: React.FC<MapCardProps> = ({ map, onClick }) => {
     const ref = useRef<HTMLDivElement>(null);
 
-    // Mouse position state for tilt effect
     const x = useMotionValue(0);
     const y = useMotionValue(0);
 
-    // Smooth spring physics for the tilt
     const mouseX = useSpring(x, { stiffness: 300, damping: 30 });
     const mouseY = useSpring(y, { stiffness: 300, damping: 30 });
 
-    // Transform mouse position to rotation degrees
     const rotateX = useTransform(mouseY, [-0.5, 0.5], ["7deg", "-7deg"]);
     const rotateY = useTransform(mouseX, [-0.5, 0.5], ["-7deg", "7deg"]);
 
-    // Holographic sheen movement (moves opposite to tilt)
     const sheenX = useTransform(mouseX, [-0.5, 0.5], ["0%", "100%"]);
     const sheenY = useTransform(mouseY, [-0.5, 0.5], ["0%", "100%"]);
 
@@ -31,7 +27,6 @@ const MapCard: React.FC<MapCardProps> = ({ map, onClick }) => {
         if (!ref.current) return;
         const rect = ref.current.getBoundingClientRect();
 
-        // Calculate normalized mouse position (-0.5 to 0.5) from center
         const width = rect.width;
         const height = rect.height;
         const mouseXFromCenter = e.clientX - rect.left - width / 2;
@@ -62,13 +57,12 @@ const MapCard: React.FC<MapCardProps> = ({ map, onClick }) => {
                 style={{
                     rotateX,
                     rotateY,
-                    transformStyle: "preserve-3d" // Essential for 3D effect
+                    transformStyle: "preserve-3d"
                 }}
             >
-                {/* Background Image Layer */}
                 <div
                     className="absolute inset-0 w-full h-full"
-                    style={{ transform: "translateZ(0px)" }} // Base layer
+                    style={{ transform: "translateZ(0px)" }}
                 >
                     <img
                         src={map.splash}
@@ -78,7 +72,6 @@ const MapCard: React.FC<MapCardProps> = ({ map, onClick }) => {
                     <div className="absolute inset-0 bg-black/50 group-hover:bg-black/20 transition-colors duration-500" />
                 </div>
 
-                {/* Holographic Sheen Layer */}
                 <motion.div
                     className="absolute inset-0 z-10 opacity-0 group-hover:opacity-40 transition-opacity duration-500 pointer-events-none mix-blend-overlay"
                     style={{
@@ -90,12 +83,10 @@ const MapCard: React.FC<MapCardProps> = ({ map, onClick }) => {
                     }}
                 />
 
-                {/* Floating UI Layer (3D Depth) */}
                 <div
                     className="absolute inset-0 p-8 flex flex-col justify-end z-20"
                     style={{ transform: "translateZ(40px)" }}
                 >
-                    {/* Top HUD */}
                     <div className="absolute top-6 right-6 flex flex-col items-end opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-[-10px] group-hover:translate-y-0">
                         <div className="flex items-center gap-2 text-valo-red mb-1">
                             <Crosshair size={14} className="animate-spin-slow" />
@@ -105,7 +96,6 @@ const MapCard: React.FC<MapCardProps> = ({ map, onClick }) => {
                         <span className="text-white/40 font-rajdhani text-[10px] mt-1 tracking-[0.2em]">{map.coordinates}</span>
                     </div>
 
-                    {/* Main Content */}
                     <div className="transform transition-transform duration-500 group-hover:translate-x-2">
                         <div className="flex items-center gap-3 mb-2 opacity-80 group-hover:opacity-100">
                             <div className="bg-valo-red px-2 py-0.5 text-[10px] font-bold text-white uppercase tracking-widest shrink-0">
@@ -124,7 +114,6 @@ const MapCard: React.FC<MapCardProps> = ({ map, onClick }) => {
                     </div>
                 </div>
 
-                {/* Decorative Tech Borders */}
                 <div className="absolute inset-4 border border-white/5 pointer-events-none z-30" style={{ transform: "translateZ(10px)" }}>
                     <div className="absolute top-0 left-0 w-2 h-2 border-t-2 border-l-2 border-white/30" />
                     <div className="absolute top-0 right-0 w-2 h-2 border-t-2 border-r-2 border-white/30" />

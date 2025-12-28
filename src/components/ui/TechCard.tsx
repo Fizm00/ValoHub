@@ -19,7 +19,6 @@ const TechCard = React.forwardRef<HTMLDivElement, TechCardProps>(
                 )}
                 {...props}
             >
-                {/* Tech decorative corners */}
                 <div className="absolute top-0 left-0 w-2 h-2 bg-white/20" />
                 <div className="absolute top-0 right-0 w-8 h-[1px] bg-white/20" />
                 <div className="absolute bottom-0 right-0 w-2 h-2 bg-white/20" />

@@ -25,20 +25,15 @@ export const CrosshairCard: React.FC<CrosshairCardProps> = ({ data }) => {
 
     return (
         <div className="group relative bg-[#1c1c1c] border border-white/10 rounded-xl overflow-hidden hover:border-valo-red/50 transition-all duration-300">
-            {/* Preview Area */}
             <div className="h-48 relative overflow-hidden bg-[#2a2a2a]">
-                {/* Background blurring map */}
                 <div
                     className="absolute inset-0 bg-[url('/maps/ascent_splash.jpg')] bg-cover bg-center opacity-30 grayscale blur-[2px] transition-all duration-500 group-hover:scale-110 group-hover:opacity-40"
-                    onError={(e) => (e.currentTarget.style.display = 'none')} // Fallback if image missing
+                    onError={(e) => (e.currentTarget.style.display = 'none')}
                 />
 
-                {/* Crosshair Rendering */}
                 <div className="absolute inset-0 z-10">
                     <CrosshairPreview config={data.config} scale={1} />
                 </div>
-
-                {/* Edit Overlay Button */}
                 <div className="absolute inset-0 z-20 flex items-center justify-center bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity backdrop-blur-[2px]">
                     <button
                         onClick={handleCustomize}
@@ -49,7 +44,6 @@ export const CrosshairCard: React.FC<CrosshairCardProps> = ({ data }) => {
                 </div>
             </div>
 
-            {/* Info Area */}
             <div className="p-4 flex items-center justify-between">
                 <div>
                     <h3 className="text-white font-oswald text-xl uppercase leading-none mb-1">{data.player}</h3>
@@ -60,7 +54,6 @@ export const CrosshairCard: React.FC<CrosshairCardProps> = ({ data }) => {
                     </div>
                 </div>
 
-                {/* Copy Button */}
                 <button
                     onClick={handleCopy}
                     className={`p-3 rounded-lg transition-all active:scale-95 ${copied

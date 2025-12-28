@@ -26,7 +26,6 @@ export const AgentSelector: React.FC<AgentSelectorProps> = ({ agents, onSelect, 
                 <span className="text-xs font-rajdhani text-white/40 tracking-widest">{filteredAgents.length} AVAILABLE</span>
             </h3>
 
-            {/* Role Filter Tabs */}
             <div className="flex gap-2 mb-6 overflow-x-auto pb-2 scrollbar-none">
                 <button
                     onClick={() => setFilterRole(null)}
@@ -51,7 +50,6 @@ export const AgentSelector: React.FC<AgentSelectorProps> = ({ agents, onSelect, 
                 ))}
             </div>
 
-            {/* Grid */}
             <div className="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-8 gap-3 overflow-y-auto pr-2 custom-scrollbar flex-1 content-start">
                 {filteredAgents.map((agent) => {
                     const isSelected = selectedAgentIds.includes(agent.uuid);
@@ -72,14 +70,12 @@ export const AgentSelector: React.FC<AgentSelectorProps> = ({ agents, onSelect, 
                                 alt={agent.displayName}
                                 className="w-full h-full object-cover p-1"
                             />
-                            {/* Hover Name */}
                             <div className="absolute inset-0 bg-black/80 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                                 <span className="text-[10px] sm:text-xs text-white uppercase font-bold text-center px-1">
                                     {agent.displayName}
                                 </span>
                             </div>
 
-                            {/* Role Icon Mini */}
                             <div className="absolute top-1 right-1 w-3 h-3 opacity-50">
                                 <img src={agent.role?.displayIcon} alt="" className="w-full h-full invert" />
                             </div>

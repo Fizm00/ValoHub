@@ -14,7 +14,6 @@ const Home = () => {
     const navigate = useNavigate();
 
     useGSAP(() => {
-        // Staggered reveal for cards
         if (!cardsRef.current) return;
 
         gsap.from(cardsRef.current.children, {
@@ -48,7 +47,6 @@ const Home = () => {
             </div>
 
             <Section centered className="bg-valo-gray z-10 relative">
-                {/* Decorative Background Elements */}
                 <div className="absolute top-20 left-10 opacity-5 pointer-events-none">
                     <h1 className="text-[200px] font-oswald font-bold leading-none text-outline-black">TACTICAL</h1>
                 </div>
@@ -65,9 +63,7 @@ const Home = () => {
                     </div>
 
                     <div ref={cardsRef} className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        {/* Agent Card */}
                         <TechCard active className="h-full min-h-[400px] flex flex-col group cursor-pointer hover:bg-valo-dark/50 transition-colors relative overflow-hidden">
-                            {/* Hover Image Reveal */}
                             <div className="absolute inset-0 opacity-0 group-hover:opacity-20 transition-opacity duration-500 bg-[url('https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/blt511598aa966e604f/665675e184f9334dd1636c7a/Abyss_Screenshot_13_4k.jpg')] bg-cover bg-center mix-blend-overlay" />
 
                             <div className="flex-1 relative z-10">
@@ -87,7 +83,6 @@ const Home = () => {
                             </Button>
                         </TechCard>
 
-                        {/* Map Card */}
                         <TechCard className="h-full min-h-[400px] flex flex-col group cursor-pointer hover:bg-valo-dark/50 transition-colors relative overflow-hidden">
                             <div className="absolute inset-0 opacity-0 group-hover:opacity-20 transition-opacity duration-500 bg-[url('https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/blt76974db37a2845c4/5eb7cdc66f6a7061af2d8d69/V_Maps_Ascent_LI.jpg')] bg-cover bg-center mix-blend-overlay" />
 
@@ -108,7 +103,6 @@ const Home = () => {
                             </Button>
                         </TechCard>
 
-                        {/* Arsenal Card */}
                         <TechCard className="h-full min-h-[400px] flex flex-col group cursor-pointer hover:bg-valo-dark/50 transition-colors relative overflow-hidden">
                             <div className="absolute inset-0 opacity-0 group-hover:opacity-20 transition-opacity duration-500 bg-[url('https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/blt9e7102717758652d/601b31d0fd7f7422f735848e/Vandal_KeyArt.png')] bg-cover bg-center mix-blend-overlay" />
 
@@ -132,7 +126,6 @@ const Home = () => {
                 </div>
             </Section>
 
-            {/* Stats Section */}
             <Section className="bg-valo-dark border-t border-white/5">
                 <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
                     <div>
@@ -154,7 +147,6 @@ const Home = () => {
                 </div>
             </Section>
 
-            {/* Footer Space / Call to Action */}
             <Section centered className="py-32 bg-valo-dark relative overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-t from-valo-red/10 to-transparent pointer-events-none" />
                 <div className="text-center relative z-10">

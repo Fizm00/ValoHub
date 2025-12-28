@@ -7,14 +7,11 @@ import { getCrosshairs, createCrosshair } from '../controllers/crosshair';
 
 const router = express.Router();
 
-// Auth Routes
 router.post('/auth/register', register);
 router.post('/auth/login', login);
 
-// Admin/Sync Routes
 router.post('/sync', syncData);
 
-// Public Routes (Read from DB now)
 router.get('/agents', async (req, res) => {
     try {
         const agents = await Agent.find();
@@ -42,7 +39,6 @@ router.get('/weapons', async (req, res) => {
     }
 });
 
-// Crosshair Routes (Public)
 router.get('/crosshairs', getCrosshairs);
 router.post('/crosshairs', createCrosshair);
 

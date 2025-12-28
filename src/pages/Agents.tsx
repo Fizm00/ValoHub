@@ -18,7 +18,6 @@ const Agents = () => {
         const loadAgents = async () => {
             try {
                 const data = await fetchAgents();
-                // Filter out duplicates and ensure playable
                 const uniqueAgents = data.filter((agent, index, self) =>
                     index === self.findIndex((t) => (
                         t.displayName === agent.displayName
@@ -56,7 +55,6 @@ const Agents = () => {
         <div className="pt-20 min-h-screen bg-valo-dark">
             <Section className="min-h-screen">
                 <div className="max-w-7xl mx-auto">
-                    {/* Header & Controls */}
                     <div className="mb-12">
                         <motion.h1
                             initial={{ opacity: 0, x: -50 }}
@@ -67,7 +65,6 @@ const Agents = () => {
                         </motion.h1>
 
                         <div className="flex flex-col md:flex-row gap-6 justify-between items-center bg-white/5 p-6 border border-white/10 backdrop-blur-sm">
-                            {/* Search */}
                             <div className="relative w-full md:w-96 group">
                                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-white/50 group-focus-within:text-valo-red transition-colors" size={20} />
                                 <input
@@ -79,7 +76,6 @@ const Agents = () => {
                                 />
                             </div>
 
-                            {/* Filters */}
                             <div className="flex flex-wrap gap-2 justify-center">
                                 <button
                                     onClick={() => setSelectedRole(null)}
@@ -110,7 +106,6 @@ const Agents = () => {
                         </div>
                     </div>
 
-                    {/* Grid */}
                     <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                         <AnimatePresence>
                             {filteredAgents.map((agent) => (
@@ -125,7 +120,6 @@ const Agents = () => {
                                     className="cursor-pointer"
                                 >
                                     <TechCard className="group h-[500px] relative overflow-hidden flex flex-col justify-end p-0 border-white/5 hover:border-valo-red transition-all duration-500 hover:shadow-[0_0_30px_rgba(255,70,85,0.3)]">
-                                        {/* Background Image */}
                                         <div className="absolute inset-0 bg-gradient-to-t from-valo-black via-transparent to-transparent z-10" />
                                         <div className="absolute inset-0 bg-[url('/bg-noise.png')] opacity-0 group-hover:opacity-20 transition-opacity mix-blend-overlay z-10" />
 
@@ -136,7 +130,6 @@ const Agents = () => {
                                             loading="lazy"
                                         />
 
-                                        {/* Content */}
                                         <div className="relative z-20 p-6 translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
                                             <h2 className="text-5xl font-oswald text-white uppercase mb-2 relative z-10 drop-shadow-lg">{agent.displayName}</h2>
                                             <div className="flex items-center gap-2 mb-4">
@@ -164,7 +157,6 @@ const Agents = () => {
                 </div>
             </Section>
 
-            {/* Detail Modal */}
             <AnimatePresence>
                 {selectedAgent && (
                     <AgentDetailModal

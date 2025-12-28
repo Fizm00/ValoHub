@@ -12,7 +12,6 @@ interface AnalysisPanelProps {
 }
 
 export const AnalysisPanel: React.FC<AnalysisPanelProps> = ({ agents, mapName }) => {
-    // Filter out nulls for analysis
     const activeAgents = useMemo(() => agents.filter((a): a is Agent => a !== null), [agents]);
 
     const analysis = useMemo(() => analyzeSquad(activeAgents, mapName), [activeAgents, mapName]);
@@ -45,14 +44,12 @@ export const AnalysisPanel: React.FC<AnalysisPanelProps> = ({ agents, mapName })
                     </div>
                 </div>
 
-                {/* Score Circle or Bar based on Score could go here */}
                 <div className="text-right">
                     <div className="text-white/30 text-[10px] uppercase">Composition Score</div>
                     <div className="text-2xl font-mono text-white">{Math.round(analysis.score)}/100</div>
                 </div>
             </div>
 
-            {/* Analysis Tips */}
             <div className="space-y-3 overflow-y-auto custom-scrollbar pr-2 flex-1">
                 {activeAgents.length === 0 ? (
                     <div className="text-white/20 text-center py-4 text-sm italic">
@@ -82,7 +79,6 @@ export const AnalysisPanel: React.FC<AnalysisPanelProps> = ({ agents, mapName })
                 )}
             </div>
 
-            {/* Roles Summary Mini */}
             <div className="mt-6 pt-4 border-t border-white/10 grid grid-cols-4 gap-2 text-center">
                 {Object.entries(analysis.roles).map(([role, count]) => (
                     <div key={role} className="bg-white/5 rounded p-2">

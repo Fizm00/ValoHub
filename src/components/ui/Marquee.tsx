@@ -5,7 +5,7 @@ import gsap from 'gsap';
 interface MarqueeProps {
     children: React.ReactNode;
     className?: string;
-    speed?: number; // Duration in seconds for one full loop
+    speed?: number;
 }
 
 export const Marquee: React.FC<MarqueeProps> = ({ children, className, speed = 20 }) => {
@@ -17,8 +17,6 @@ export const Marquee: React.FC<MarqueeProps> = ({ children, className, speed = 2
 
         const contentWidth = contentRef.current.offsetWidth;
 
-        // Clone content to ensure seamless loop
-        // We'll use a simple GSAP tween
         gsap.to(contentRef.current, {
             x: -contentWidth / 2,
             duration: speed,
@@ -32,7 +30,7 @@ export const Marquee: React.FC<MarqueeProps> = ({ children, className, speed = 2
         <div ref={containerRef} className={cn("overflow-hidden whitespace-nowrap flex w-full select-none", className)}>
             <div ref={contentRef} className="flex">
                 {children}
-                {children} {/* Duplicate for seamless loop */}
+                {children}
             </div>
         </div>
     );

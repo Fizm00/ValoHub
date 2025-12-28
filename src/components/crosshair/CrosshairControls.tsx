@@ -33,7 +33,6 @@ export const CrosshairControls: React.FC<CrosshairControlsProps> = ({ config, on
             </div>
 
             <div className="space-y-8">
-                {/* General */}
                 <div className="space-y-4">
                     <h4 className="text-white/50 text-xs font-bold uppercase tracking-widest">General</h4>
 
@@ -120,7 +119,6 @@ export const CrosshairControls: React.FC<CrosshairControlsProps> = ({ config, on
                     )}
                 </div>
 
-                {/* Inner Lines */}
                 <div className="space-y-4">
                     <div className="flex items-center justify-between">
                         <h4 className="text-white/50 text-xs font-bold uppercase tracking-widest">Inner Lines</h4>

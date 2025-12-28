@@ -6,7 +6,6 @@ import type { CrosshairConfig } from '../data/crosshairs';
 import { useLocation } from 'react-router-dom';
 import { Copy, RotateCcw } from 'lucide-react';
 
-// Default Config
 const DEFAULT_CONFIG: CrosshairConfig = {
     color: "#00ffff",
     outlines: true,
@@ -25,10 +24,7 @@ const CrosshairGenerator = () => {
     const [config, setConfig] = useState<CrosshairConfig>(initialConfig);
     const [profileName, setProfileName] = useState(initialName);
 
-    // Dummy generate code function - in a real app this would parse the config to the '0;P;...' format
     const generateCode = () => {
-        // This is complex string manipulation. For now we just return a placeholder or the original if unedited.
-        // Implementing full protocol generator is out of scope for this step, but we can simulate success.
         return `0;P;c;${config.color};h;0... (Generator WIP)`;
     };
 
@@ -39,7 +35,6 @@ const CrosshairGenerator = () => {
 
     return (
         <div className="fixed inset-0 top-20 bg-valo-dark flex flex-col z-0">
-            {/* Background Decorations */}
             <div className="absolute top-0 left-0 w-full h-full bg-[url('/grid.png')] opacity-5 pointer-events-none" />
 
             <div className="relative z-10 max-w-7xl mx-auto flex flex-col w-full h-full p-4 md:p-6 !py-6">
@@ -74,23 +69,17 @@ const CrosshairGenerator = () => {
                 </header>
 
                 <div className="flex-1 min-h-0 grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    {/* Left: Preview Area (2/3) */}
                     <div className="lg:col-span-2 relative bg-[#1c1c1c] rounded-xl overflow-hidden border border-white/10 group h-full">
-                        {/* Dynamic Background */}
                         <div className="absolute inset-0 bg-[url('/maps/ascent_splash.jpg')] bg-cover bg-center transition-all opacity-50" />
-
-                        {/* Crosshair Center */}
                         <div className="absolute inset-0 flex items-center justify-center">
                             <CrosshairPreview config={config} scale={1} />
                         </div>
 
-                        {/* Optional: Map Selectors for background could go here */}
                         <div className="absolute bottom-4 left-4 text-white/30 text-xs bg-black/50 px-2 py-1 rounded">
                             Preview Scale: 1x
                         </div>
                     </div>
 
-                    {/* Right: Controls (1/3) */}
                     <div className="min-h-0 flex flex-col h-full overflow-hidden">
                         <CrosshairControls config={config} onChange={setConfig} />
                     </div>

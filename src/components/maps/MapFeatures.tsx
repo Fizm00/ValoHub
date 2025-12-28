@@ -1,4 +1,3 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 import { DoorOpen, ArrowUpFromLine, Zap, Target } from 'lucide-react';
 import { TechCard } from '../ui/TechCard';
@@ -82,7 +81,6 @@ const MapFeatures = () => {
                 </div>
             </div>
 
-            {/* Background elements */}
             <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1/3 h-full bg-gradient-to-l from-valo-red/5 to-transparent pointer-events-none" />
         </Section>
     );

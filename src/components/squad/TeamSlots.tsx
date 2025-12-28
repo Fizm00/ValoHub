@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, X } from 'lucide-react';
 
 interface TeamSlotsProps {
-    agents: (Agent | null)[]; // Always length 5
+    agents: (Agent | null)[];
     onRemove: (index: number) => void;
 }
 
@@ -29,17 +29,14 @@ export const TeamSlots: React.FC<TeamSlotsProps> = ({ agents, onRemove }) => {
                                 exit={{ opacity: 0, scale: 0.9 }}
                                 className="w-full h-full relative"
                             >
-                                {/* Background Portrait */}
                                 <img
                                     src={agent.fullPortrait || agent.displayIcon}
                                     alt={agent.displayName}
                                     className="absolute inset-0 w-full h-full object-cover object-top scale-125 translate-y-4 md:translate-y-8 grayscale-[0.2] group-hover:grayscale-0 transition-all duration-500"
                                 />
 
-                                {/* Gradient Overlay */}
                                 <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-90" />
 
-                                {/* Info */}
                                 <div className="absolute bottom-0 inset-x-0 p-3 flex flex-col items-center">
                                     <img src={agent.role?.displayIcon} className="w-4 h-4 invert opacity-70 mb-1" />
                                     <span className="text-white font-oswald uppercase text-lg md:text-2xl leading-none shadow-black drop-shadow-md">
@@ -50,7 +47,6 @@ export const TeamSlots: React.FC<TeamSlotsProps> = ({ agents, onRemove }) => {
                                     </span>
                                 </div>
 
-                                {/* Remove Button */}
                                 <button
                                     onClick={() => onRemove(index)}
                                     className="absolute top-2 right-2 bg-red-500/20 hover:bg-red-500 text-red-200 hover:text-white p-1 rounded transition-all opacity-0 group-hover:opacity-100 scale-90 hover:scale-100"
@@ -66,7 +62,6 @@ export const TeamSlots: React.FC<TeamSlotsProps> = ({ agents, onRemove }) => {
                         )}
                     </AnimatePresence>
 
-                    {/* Slot Number Overlay */}
                     {!agent && (
                         <div className="absolute top-2 left-3 text-4xl font-oswald text-white/5 font-bold select-none">
                             0{index + 1}

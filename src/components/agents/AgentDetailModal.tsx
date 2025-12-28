@@ -10,7 +10,6 @@ interface AgentDetailModalProps {
 
 const AgentDetailModal: React.FC<AgentDetailModalProps> = ({ agent, onClose }) => {
 
-    // Lock body scroll when modal is open
     React.useEffect(() => {
         document.body.style.overflow = 'hidden';
         return () => {
@@ -33,11 +32,10 @@ const AgentDetailModal: React.FC<AgentDetailModalProps> = ({ agent, onClose }) =
                 transition={{ type: "spring", damping: 30, stiffness: 300 }}
                 className="relative w-full max-w-7xl h-[90vh] bg-valo-dark border border-white/10 flex flex-col md:flex-row shadow-[0_0_50px_rgba(255,70,85,0.1)] overflow-hidden"
                 style={{
-                    clipPath: "polygon(0 0, 100% 0, 100% 85%, 98% 100%, 0 100%)" // Tech shape
+                    clipPath: "polygon(0 0, 100% 0, 100% 85%, 98% 100%, 0 100%)"
                 }}
                 onClick={(e) => e.stopPropagation()}
             >
-                {/* Tech Deco Lines */}
                 <div className="absolute top-0 left-0 w-2 h-20 bg-valo-red z-50" />
                 <div className="absolute bottom-0 right-0 w-20 h-2 bg-valo-red z-50" />
                 <div className="absolute top-4 right-12 flex gap-2 z-50">
@@ -46,7 +44,6 @@ const AgentDetailModal: React.FC<AgentDetailModalProps> = ({ agent, onClose }) =
                     <div className="w-2 h-2 bg-white/10" />
                 </div>
 
-                {/* Close Button */}
                 <button
                     onClick={onClose}
                     className="absolute top-6 right-6 z-50 p-2 group"
@@ -57,16 +54,13 @@ const AgentDetailModal: React.FC<AgentDetailModalProps> = ({ agent, onClose }) =
                     </div>
                 </button>
 
-                {/* Left: Visuals */}
                 <div className="w-full md:w-[45%] relative bg-gradient-to-b from-[#1a1a1a] to-valo-black overflow-hidden flex items-end justify-center border-r border-white/5">
-                    {/* Large Background Text */}
                     <div className="absolute top-10 left-0 w-full text-center pointer-events-none overflow-hidden">
                         <span className="text-[12rem] md:text-[16rem] font-oswald font-bold text-white/[0.03] leading-none tracking-tighter uppercase whitespace-nowrap">
                             {agent.role?.displayName}
                         </span>
                     </div>
 
-                    {/* Background Pattern */}
                     <div className="absolute inset-0 opacity-30 bg-[url('/bg-noise.png')] mix-blend-overlay" />
                     <div className="absolute bottom-0 w-full h-1/2 bg-gradient-to-t from-valo-black to-transparent z-10" />
 
@@ -80,20 +74,17 @@ const AgentDetailModal: React.FC<AgentDetailModalProps> = ({ agent, onClose }) =
                     />
                 </div>
 
-                {/* Right: Info */}
                 <div className="w-full md:w-[55%] flex flex-col h-full bg-valo-black/50 relative z-40">
-                    {/* Scrollable Content - Added data-lenis-prevent to stop main page scrolling */}
                     <div
                         className="overflow-y-auto custom-scrollbar p-6 md:p-16 h-full w-full touch-pan-y"
                         data-lenis-prevent
-                        onWheel={(e) => e.stopPropagation()} // Extra safety
+                        onWheel={(e) => e.stopPropagation()}
                     >
                         <motion.div
                             initial={{ x: 50, opacity: 0 }}
                             animate={{ x: 0, opacity: 1 }}
                             transition={{ delay: 0.4 }}
                         >
-                            {/* Role Tag */}
                             <div className="flex items-center gap-3 mb-4">
                                 <div className="w-8 h-8 flex items-center justify-center border border-white/20 bg-white/5 skew-x-[-15deg]">
                                     <img src={agent.role?.displayIcon} alt={agent.role?.displayName} className="w-4 h-4 skew-x-[15deg] opacity-80" />
@@ -103,7 +94,6 @@ const AgentDetailModal: React.FC<AgentDetailModalProps> = ({ agent, onClose }) =
                                 </span>
                             </div>
 
-                            {/* Name & Desc */}
                             <h2 className="text-7xl md:text-9xl font-oswald font-bold text-white uppercase mb-8 leading-[0.85] tracking-tight">
                                 {agent.displayName}
                             </h2>
@@ -115,9 +105,6 @@ const AgentDetailModal: React.FC<AgentDetailModalProps> = ({ agent, onClose }) =
                                 </p>
                             </div>
 
-                            {/* Stats/Details Grid (Placeholder for now, keeping it clean) */}
-
-                            {/* Abilities Section */}
                             <div className="space-y-6">
                                 <h3 className="text-2xl font-oswald text-white uppercase flex items-center gap-4">
                                     <span className="w-8 h-px bg-valo-red" />
@@ -131,15 +118,12 @@ const AgentDetailModal: React.FC<AgentDetailModalProps> = ({ agent, onClose }) =
                                                 key={idx}
                                                 className="group relative bg-white/5 border border-white/5 hover:border-valo-red/50 hover:bg-white/10 transition-all duration-300 p-4 flex gap-4 items-start overflow-hidden"
                                             >
-                                                {/* Hover Glow */}
                                                 <div className="absolute inset-0 bg-gradient-to-r from-valo-red/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
 
-                                                {/* Icon */}
                                                 <div className="shrink-0 w-16 h-16 bg-black/40 border border-white/10 flex items-center justify-center group-hover:scale-105 transition-transform z-10">
                                                     <img src={ability.displayIcon} alt={ability.displayName} className="w-10 h-10 object-contain" />
                                                 </div>
 
-                                                {/* Text */}
                                                 <div className="relative z-10">
                                                     <div className="flex items-baseline gap-2 mb-1">
                                                         <h4 className="text-xl font-bold font-oswald text-white uppercase group-hover:text-valo-red transition-colors">

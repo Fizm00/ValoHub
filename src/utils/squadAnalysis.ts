@@ -8,12 +8,11 @@ export interface CompositionTip {
 
 export interface SquadAnalysisResult {
     grade: 'S' | 'A' | 'B' | 'C' | 'D' | 'F';
-    score: number; // 0-100
+    score: number;
     tips: CompositionTip[];
     roles: Record<string, number>;
 }
 
-// Role Definitions (based on standard Valorant roles)
 const ROLES = {
     DUELIST: 'Duelist',
     CONTROLLER: 'Controller',
@@ -21,7 +20,6 @@ const ROLES = {
     SENTINEL: 'Sentinel'
 };
 
-// Map Specific Meta Data (Comprehensive Rules)
 const MAP_META: Record<string, { S_Tier: string[], F_Tier: string[], essentialRole?: string, note?: string }> = {
     "Ascent": {
         S_Tier: ["Sova", "Jett", "Omen", "Killjoy", "KAY/O"],

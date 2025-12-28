@@ -9,21 +9,17 @@ export const syncData = async (req: Request, res: Response) => {
     try {
         console.log("⚡ Starting Data Sync...");
 
-        // DROP COLLECTIONS to clear old indexes/data
-        // Use try-catch because dropping non-existent collection throws error
         try { await Agent.collection.drop(); } catch (e) { console.log('Agents collection not found or already empty'); }
         try { await MapModel.collection.drop(); } catch (e) { console.log('Maps collection not found or already empty'); }
         try { await Weapon.collection.drop(); } catch (e) { console.log('Weapons collection not found or already empty'); }
         console.log("🗑️ Cleared old data and indexes");
 
-        // 1. Sync Agents
         console.log("Fetching Agents...");
         const agentsRes = await fetch(`${BASE_URL}/agents?isPlayableCharacter=true`);
         const agentsData = await agentsRes.json();
 
         let agentCount = 0;
         for (const agent of agentsData.data) {
-            // Filter duplicates if needed, but upsert handles updates
             if (agent.isPlayableCharacter) {
                 await Agent.findOneAndUpdate(
                     { uuid: agent.uuid },
@@ -35,17 +31,15 @@ export const syncData = async (req: Request, res: Response) => {
         }
         console.log(`✅ Synced ${agentCount} Agents`);
 
-        // 2. Sync Maps
         console.log("Fetching Maps...");
         const mapsRes = await fetch(`${BASE_URL}/maps`);
         const mapsData = await mapsRes.json();
 
         let mapCount = 0;
         for (const map of mapsData.data) {
-            // Inject custom narrative and release date
             const metadata = MAP_METADATA[map.displayName];
             const narrative = map.narrativeDescription || metadata?.narrative || "Top secret location. No intelligence data available.";
-            const releaseDate = metadata?.releaseDate || "2020-06-02"; // Fallback to initial release
+            const releaseDate = metadata?.releaseDate || "2020-06-02";
 
             await MapModel.findOneAndUpdate(
                 { uuid: map.uuid },
@@ -60,7 +54,6 @@ export const syncData = async (req: Request, res: Response) => {
         }
         console.log(`✅ Synced ${mapCount} Maps`);
 
-        // 3. Sync Weapons
         console.log("Fetching Weapons...");
         const weaponsRes = await fetch(`${BASE_URL}/weapons`);
         const weaponsData = await weaponsRes.json();
@@ -71,7 +64,7 @@ export const syncData = async (req: Request, res: Response) => {
                 { uuid: weapon.uuid },
                 {
                     ...weapon,
-                    strategyGuide: WEAPON_STRATEGIES[weapon.displayName] || [] // Inject Strategy Guide
+                    strategyGuide: WEAPON_STRATEGIES[weapon.displayName] || []
                 },
                 { upsert: true, new: true }
             );

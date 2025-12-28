@@ -26,12 +26,10 @@ const CrosshairGallery = () => {
 
     return (
         <div className="min-h-screen bg-valo-dark pt-20 pb-10 flex flex-col relative overflow-hidden">
-            {/* Background Decorations */}
             <div className="absolute top-0 left-0 w-full h-full bg-[url('/grid.png')] opacity-5 pointer-events-none" />
             <div className="absolute top-20 right-0 w-[400px] h-[400px] bg-valo-cyan/10 blur-[120px] rounded-full pointer-events-none" />
 
             <Section className="relative z-10 max-w-7xl mx-auto flex-1 flex flex-col w-full h-full p-4 md:p-6 !py-6">
-                {/* Header */}
                 <header className="mb-10 flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-white/5 pb-6">
                     <div className="flex items-center gap-4">
                         <div className="p-4 bg-valo-cyan/20 rounded border border-valo-cyan/50 text-valo-cyan">
@@ -61,7 +59,6 @@ const CrosshairGallery = () => {
                     </div>
                 </header>
 
-                {/* Grid */}
                 {loading ? (
                     <div className="flex items-center justify-center h-64">
                         <Loader2 className="animate-spin text-valo-red" size={48} />
@@ -72,7 +69,6 @@ const CrosshairGallery = () => {
                             <CrosshairCard key={idx} data={data} />
                         ))}
 
-                        {/* Placeholder for "Submit Yours" or "More Coming Soon" */}
                         <div className="border border-dashed border-white/10 rounded-xl flex flex-col items-center justify-center p-8 text-white/20 min-h-[250px] hover:bg-white/5 transition-colors cursor-pointer group">
                             <Crosshair size={48} className="mb-4 opacity-50 group-hover:scale-110 transition-transform" />
                             <span className="font-rajdhani uppercase tracking-widest text-sm">More Pros Incoming...</span>

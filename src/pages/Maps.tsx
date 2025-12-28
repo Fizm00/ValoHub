@@ -16,16 +16,12 @@ const MapsContent = ({ maps }: { maps: MapData[] }) => {
         target: containerRef,
     });
 
-    const x = useTransform(scrollYProgress, [0, 1], ["0%", `-${(maps.length - 1) * 45}vw`]); // Adjusted scroll speed for cards
+    const x = useTransform(scrollYProgress, [0, 1], ["0%", `-${(maps.length - 1) * 45}vw`]);
 
-    // Parallax background text
     const bgTextX = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
 
     return (
         <div className="bg-valo-dark relative">
-            {/* Background elements */}
-
-            {/* Fixed Background Text Layer */}
             <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
                 <motion.div style={{ x: bgTextX }} className="absolute top-1/2 -translate-y-1/2 left-0 whitespace-nowrap opacity-[0.03]">
                     <span className="text-[20rem] font-oswald font-bold uppercase text-white leading-none">
@@ -34,7 +30,6 @@ const MapsContent = ({ maps }: { maps: MapData[] }) => {
                 </motion.div>
             </div>
 
-            {/* Horizontal Scroll Container */}
             <div className="h-[300vh] relative z-10" ref={containerRef}>
                 <div className="sticky top-0 h-screen overflow-hidden flex items-center">
                     <motion.div style={{ x }} className="flex gap-8 px-10 items-center">
@@ -49,7 +44,6 @@ const MapsContent = ({ maps }: { maps: MapData[] }) => {
                 </div>
             </div>
 
-            {/* NEW Content Sections */}
             <div className="relative z-20 bg-valo-black -mt-[60vh]">
                 <TacticalBriefing maps={maps} />
                 <MapTimeline maps={maps} />
@@ -73,7 +67,6 @@ const MapsContent = ({ maps }: { maps: MapData[] }) => {
                 </div>
             </Section>
 
-            {/* Detail Modal */}
             <AnimatePresence>
                 {selectedMap && (
                     <MapDetailModal

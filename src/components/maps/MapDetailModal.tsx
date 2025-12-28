@@ -12,7 +12,6 @@ const MapDetailModal: React.FC<MapDetailModalProps> = ({ map, onClose }) => {
 
     const [showCallouts, setShowCallouts] = React.useState(true);
 
-    // Lock body scroll when modal is open
     React.useEffect(() => {
         document.body.style.overflow = 'hidden';
         return () => {
@@ -39,11 +38,9 @@ const MapDetailModal: React.FC<MapDetailModalProps> = ({ map, onClose }) => {
                 }}
                 onClick={(e) => e.stopPropagation()}
             >
-                {/* Tech Deco */}
                 <div className="absolute top-0 right-0 w-32 h-32 border-t-2 border-r-2 border-valo-red rounded-tr-3xl z-50 pointer-events-none opacity-50" />
                 <div className="absolute bottom-0 left-0 w-32 h-32 border-b-2 border-l-2 border-white/20 rounded-bl-3xl z-50 pointer-events-none opacity-50" />
 
-                {/* Close Button */}
                 <button
                     onClick={onClose}
                     className="absolute top-6 right-6 z-50 p-2 group"
@@ -54,12 +51,10 @@ const MapDetailModal: React.FC<MapDetailModalProps> = ({ map, onClose }) => {
                     </div>
                 </button>
 
-                {/* Left: Tactical Map View */}
                 <div className="w-full md:w-[60%] relative bg-valo-black/80 flex items-center justify-center p-8 border-r border-white/5 overflow-hidden">
                     <div className="absolute inset-0 bg-[url('/bg-noise.png')] opacity-20 mix-blend-overlay" />
                     <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-valo-red/5 to-transparent pointer-events-none" />
 
-                    {/* Controls */}
                     <div className="absolute top-8 left-8 z-20 flex gap-4">
                         <button
                             onClick={() => setShowCallouts(!showCallouts)}
@@ -69,7 +64,6 @@ const MapDetailModal: React.FC<MapDetailModalProps> = ({ map, onClose }) => {
                         </button>
                     </div>
 
-                    {/* Map Image Container */}
                     <div className="relative w-full h-full max-h-[80vh] aspect-square flex items-center justify-center">
                         <motion.img
                             initial={{ scale: 0.8, opacity: 0, rotate: -5 }}
@@ -81,10 +75,7 @@ const MapDetailModal: React.FC<MapDetailModalProps> = ({ map, onClose }) => {
                             style={{ filter: "invert(1) opacity(0.9)" }}
                         />
 
-                        {/* Callouts Overlay */}
                         {showCallouts && map.callouts?.map((callout, index) => {
-                            // Coordinate Transformation (Standard)
-                            // UI_Y = World_X ... UI_X = World_Y
                             const top = (callout.location.x * map.yMultiplier) + map.yScalarToAdd;
                             const left = (callout.location.y * map.xMultiplier) + map.xScalarToAdd;
 
@@ -97,13 +88,11 @@ const MapDetailModal: React.FC<MapDetailModalProps> = ({ map, onClose }) => {
                                     style={{
                                         top: `${top * 100}%`,
                                         left: `${left * 100}%`,
-                                        transform: 'translate(-50%, -50%)' // Center the dot exactly on the point
+                                        transform: 'translate(-50%, -50%)'
                                     }}
                                 >
-                                    {/* DOT: The reference anchor */}
                                     <div className="w-1.5 h-1.5 bg-valo-red rounded-full shadow-[0_0_8px_#ff4655] group-hover:scale-150 transition-transform relative z-10" />
 
-                                    {/* TEXT: Always visible now */}
                                     <div className="absolute top-3 z-20 pointer-events-none whitespace-nowrap">
                                         <span className="text-[10px] font-bold font-rajdhani text-white uppercase tracking-wider bg-black/60 px-1.5 py-0.5 rounded backdrop-blur-sm border border-white/10 shadow-sm">
                                             {callout.regionName}
@@ -113,7 +102,6 @@ const MapDetailModal: React.FC<MapDetailModalProps> = ({ map, onClose }) => {
                             );
                         })}
 
-                        {/* Overlay Grid */}
                         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:50px_50px] pointer-events-none" />
                     </div>
 
@@ -123,7 +111,6 @@ const MapDetailModal: React.FC<MapDetailModalProps> = ({ map, onClose }) => {
                     </div>
                 </div>
 
-                {/* Right: Info */}
                 <div className="w-full md:w-[40%] flex flex-col h-full bg-valo-dark relative z-40">
                     <div
                         className="overflow-y-auto custom-scrollbar p-8 md:p-12 h-full w-full touch-pan-y"

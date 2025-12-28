@@ -36,7 +36,6 @@ const Hero = () => {
             <HeroBackground />
 
             <div className="relative z-10 text-center px-4 max-w-5xl mx-auto">
-                {/* Animated Glitch/Main Title */}
                 <h1 ref={textRef} className="text-7xl md:text-9xl font-oswald font-bold tracking-tighter text-white mb-6 uppercase leading-none">
                     <span className="text-outline-valo block md:inline">Valo</span>
                     <span className="text-valo-red block md:inline md:ml-4">Hub</span>
@@ -66,7 +65,6 @@ const Hero = () => {
                 </motion.div>
             </div>
 
-            {/* Scroll Indicator */}
             <motion.div
                 animate={{ y: [0, 10, 0] }}
                 transition={{ repeat: Infinity, duration: 2 }}

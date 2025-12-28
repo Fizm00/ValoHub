@@ -1,6 +1,6 @@
 
 export interface CrosshairConfig {
-    color: string; // CSS color
+    color: string;
     outlines: boolean;
     outlineOpacity?: number;
     outlineThickness?: number;
@@ -25,10 +25,7 @@ export interface CrosshairConfig {
 
 export interface ProCrosshair {
     player: string;
-    team: string; // e.g. SEN, PRX, FNC
-    code: string; // The copyable profile code
+    team: string;
+    code: string;
     config: CrosshairConfig;
 }
-
-// PRO_CROSSHAIRS has been migrated to the database (server/models/Crosshair.ts)
-// Interfaces are kept for type safety in frontend components.

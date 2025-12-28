@@ -1,8 +1,7 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import Section from '../ui/Section';
 import type { MapData } from '../../services/api';
 
-// Static Tactical Data for major maps (fallback for others)
 const TACTICAL_INTEL: Record<string, { attack: string; defend: string; composition: string }> = {
     "Ascent": {
         attack: "Control Mid courtyard to split defenses. Use smokes to block Market and Pizza.",
@@ -53,11 +52,8 @@ const DEFAULT_INTEL = {
 };
 
 const TacticalBriefing = ({ maps }: { maps: MapData[] }) => {
-    // Pick a random map or cycle them (using first for stability or random for fun)
-    // For "Daily" feel, we could use the date to seed, but random on load is fine for now
     const featuredMap = useMemo(() => {
         if (!maps || maps.length === 0) return null;
-        // Simple random pick
         const randomIndex = Math.floor(Math.random() * maps.length);
         return maps[randomIndex];
     }, [maps]);
@@ -68,22 +64,18 @@ const TacticalBriefing = ({ maps }: { maps: MapData[] }) => {
 
     return (
         <Section className="py-12 md:pb-24 relative overflow-hidden border-t border-white/5">
-            {/* Background Texture */}
             <div className="absolute inset-0 bg-[url('/bg-noise.png')] opacity-5 mix-blend-overlay" />
 
             <div className="container mx-auto px-6 relative z-10">
                 <div className="flex flex-col lg:flex-row gap-12">
 
-                    {/* Left: Map Visual */}
                     <div className="lg:w-1/2 relative group">
                         <div className="aspect-video bg-valo-dark relative overflow-hidden border border-white/10">
-                            {/* Image */}
                             <img
                                 src={featuredMap.splash}
                                 alt={featuredMap.displayName}
                                 className="w-full h-full object-cover opacity-60 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 grayscale group-hover:grayscale-0"
                             />
-                            {/* Overlay UI */}
                             <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80" />
 
                             <div className="absolute bottom-6 left-6">
@@ -94,7 +86,6 @@ const TacticalBriefing = ({ maps }: { maps: MapData[] }) => {
                                 <p className="text-white/60 font-rajdhani">{featuredMap.coordinates || "UNKNOWN COORDINATES"}</p>
                             </div>
 
-                            {/* Decoration */}
                             <div className="absolute top-4 right-4 w-12 h-12 border-t-2 border-r-2 border-white/20" />
                             <div className="absolute bottom-4 right-4 text-right">
                                 <div className="text-[10px] text-white/30 font-mono">SECTOR_ID</div>
@@ -103,7 +94,6 @@ const TacticalBriefing = ({ maps }: { maps: MapData[] }) => {
                         </div>
                     </div>
 
-                    {/* Right: Briefing File */}
                     <div className="lg:w-1/2 flex flex-col justify-center">
                         <div className="mb-8 relative">
                             <h2 className="text-4xl font-oswald text-white uppercase mb-2">
@@ -113,7 +103,6 @@ const TacticalBriefing = ({ maps }: { maps: MapData[] }) => {
                         </div>
 
                         <div className="space-y-8">
-                            {/* Mission Objectives */}
                             <div>
                                 <h4 className="text-sm font-bold text-white/40 uppercase tracking-widest mb-3 flex items-center gap-2">
                                     <div className="w-1 h-3 bg-valo-red" />
@@ -134,7 +123,6 @@ const TacticalBriefing = ({ maps }: { maps: MapData[] }) => {
                                 </p>
                             </div>
 
-                            {/* Squad Recs */}
                             <div className="bg-white/5 border border-white/10 p-6">
                                 <h4 className="text-xs font-mono text-valo-red uppercase mb-2">RECOMMENDED SQUAD</h4>
                                 <div className="text-xl font-oswald text-white tracking-wide">

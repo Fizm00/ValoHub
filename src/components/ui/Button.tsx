@@ -44,7 +44,6 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
                     {children as React.ReactNode}
                 </span>
 
-                {/* Decorative elements for tech feel */}
                 {variant === 'primary' && (
                     <span className="absolute inset-0 z-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] hover:translate-x-[100%] transition-transform duration-700" />
                 )}
