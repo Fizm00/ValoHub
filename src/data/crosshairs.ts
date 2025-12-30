@@ -24,6 +24,8 @@ export interface CrosshairConfig {
 }
 
 export interface ProCrosshair {
+    _id: string;
+    id?: string;
     player: string;
     team: string;
     code: string;

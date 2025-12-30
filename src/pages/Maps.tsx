@@ -1,12 +1,13 @@
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useState } from 'react';
 import Section from '../components/ui/Section';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
-import { fetchMaps, type MapData } from '../services/api';
+import { type MapData } from '../services/api';
 import MapDetailModal from '../components/maps/MapDetailModal';
 import MapCard from '../components/maps/MapCard';
 import MapFeatures from '../components/maps/MapFeatures';
 import TacticalBriefing from '../components/maps/TacticalBriefing';
 import MapTimeline from '../components/maps/MapTimeline';
+import { useMaps } from '../hooks/useValoData';
 
 const MapsContent = ({ maps }: { maps: MapData[] }) => {
     const containerRef = useRef<HTMLDivElement>(null);
@@ -80,24 +81,9 @@ const MapsContent = ({ maps }: { maps: MapData[] }) => {
 };
 
 const Maps = () => {
-    const [maps, setMaps] = useState<MapData[]>([]);
-    const [loading, setLoading] = useState(true);
+    const { data: maps = [], isLoading } = useMaps();
 
-    useEffect(() => {
-        const loadMaps = async () => {
-            try {
-                const data = await fetchMaps();
-                setMaps(data);
-            } catch (error) {
-                console.error("Failed to load maps", error);
-            } finally {
-                setLoading(false);
-            }
-        };
-        loadMaps();
-    }, []);
-
-    if (loading) {
+    if (isLoading) {
         return (
             <div className="h-screen flex items-center justify-center bg-valo-dark text-white">
                 <div className="text-2xl font-oswald animate-pulse">LOADING MAPS...</div>

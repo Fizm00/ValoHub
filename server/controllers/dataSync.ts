@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { Agent, MapModel, Weapon } from '../models';
+import { Agent, MapModel, Weapon, Skin } from '../models';
 import { MAP_METADATA } from '../data/mapMetadata';
 import { WEAPON_STRATEGIES } from '../data/weaponMetadata';
 
@@ -12,6 +12,7 @@ export const syncData = async (req: Request, res: Response) => {
         try { await Agent.collection.drop(); } catch (e) { console.log('Agents collection not found or already empty'); }
         try { await MapModel.collection.drop(); } catch (e) { console.log('Maps collection not found or already empty'); }
         try { await Weapon.collection.drop(); } catch (e) { console.log('Weapons collection not found or already empty'); }
+        try { await Skin.collection.drop(); } catch (e) { console.log('Skins collection not found or already empty'); }
         console.log("🗑️ Cleared old data and indexes");
 
         console.log("Fetching Agents...");
@@ -59,6 +60,7 @@ export const syncData = async (req: Request, res: Response) => {
         const weaponsData = await weaponsRes.json();
 
         let weaponCount = 0;
+        let skinCount = 0;
         for (const weapon of weaponsData.data) {
             await Weapon.findOneAndUpdate(
                 { uuid: weapon.uuid },
@@ -69,15 +71,31 @@ export const syncData = async (req: Request, res: Response) => {
                 { upsert: true, new: true }
             );
             weaponCount++;
+
+            // Sync Skins
+            if (weapon.skins && weapon.skins.length > 0) {
+                for (const skin of weapon.skins) {
+                    await Skin.findOneAndUpdate(
+                        { uuid: skin.uuid },
+                        {
+                            ...skin,
+                            weaponUuid: weapon.uuid
+                        },
+                        { upsert: true, new: true }
+                    );
+                    skinCount++;
+                }
+            }
         }
-        console.log(`✅ Synced ${weaponCount} Weapons`);
+        console.log(`✅ Synced ${weaponCount} Weapons and ${skinCount} Skins`);
 
         res.json({
             message: "Data Synchronization Complete",
             stats: {
                 agents: agentCount,
                 maps: mapCount,
-                weapons: weaponCount
+                weapons: weaponCount,
+                skins: skinCount
             }
         });
 

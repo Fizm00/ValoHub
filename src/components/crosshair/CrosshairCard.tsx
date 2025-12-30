@@ -1,17 +1,30 @@
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import type { ProCrosshair } from '../../data/crosshairs';
 import { CrosshairPreview } from './CrosshairPreview';
 import { useNavigate } from 'react-router-dom';
-import { Copy, Check, Edit3 } from 'lucide-react';
+import { Copy, Check, Edit3, Heart } from 'lucide-react';
+import { useAuth } from '../../context/AuthContext';
+import { toggleSavedCrosshair } from '../../services/api';
 
 interface CrosshairCardProps {
     data: ProCrosshair;
 }
 
 export const CrosshairCard: React.FC<CrosshairCardProps> = ({ data }) => {
+    const { user, token, updateUser } = useAuth();
     const [copied, setCopied] = useState(false);
+    const [isSaved, setIsSaved] = useState(false);
+    const [isSaving, setIsSaving] = useState(false);
     const navigate = useNavigate();
+
+    // Check if saved on mount/user update
+    // Note: data.id is usually a string like 'tenz', 'yay' etc. from local data. 
+    // Backend stores string IDs in savedCrosshairs.
+    useEffect(() => {
+        if (user && user.savedCrosshairs) {
+            setIsSaved(user.savedCrosshairs.includes(data._id));
+        }
+    }, [user, data._id]);
 
     const handleCopy = () => {
         navigator.clipboard.writeText(data.code);
@@ -21,6 +34,27 @@ export const CrosshairCard: React.FC<CrosshairCardProps> = ({ data }) => {
 
     const handleCustomize = () => {
         navigate('/crosshair/create', { state: { config: data.config, player: data.player } });
+    };
+
+    const handleSave = async () => {
+        if (!user || !token) {
+            // Optional: Redirect to login or show detailed toast
+            alert("Please login to save crosshairs!");
+            return;
+        }
+
+        try {
+            setIsSaving(true);
+            const response = await toggleSavedCrosshair(data._id, token);
+            if (response.savedCrosshairs) {
+                updateUser({ ...user, savedCrosshairs: response.savedCrosshairs });
+                setIsSaved(response.message === 'Crosshair saved');
+            }
+        } catch (error) {
+            console.error("Failed to save crosshair", error);
+        } finally {
+            setIsSaving(false);
+        }
     };
 
     return (
@@ -34,6 +68,22 @@ export const CrosshairCard: React.FC<CrosshairCardProps> = ({ data }) => {
                 <div className="absolute inset-0 z-10">
                     <CrosshairPreview config={data.config} scale={1} />
                 </div>
+
+                {/* Save Button Top Right */}
+                <div className="absolute top-3 right-3 z-30">
+                    <button
+                        onClick={handleSave}
+                        disabled={isSaving}
+                        className={`p-2 rounded-lg transition-all transform hover:scale-110 ${isSaved
+                            ? 'bg-valo-red text-white shadow-lg shadow-valo-red/40'
+                            : 'bg-black/40 text-white/50 hover:bg-black/60 hover:text-white backdrop-blur-sm'
+                            }`}
+                        title={isSaved ? "Unsave" : "Save"}
+                    >
+                        <Heart size={18} fill={isSaved ? "currentColor" : "none"} className={isSaving ? "animate-pulse" : ""} />
+                    </button>
+                </div>
+
                 <div className="absolute inset-0 z-20 flex items-center justify-center bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity backdrop-blur-[2px]">
                     <button
                         onClick={handleCustomize}

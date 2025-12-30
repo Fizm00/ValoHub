@@ -1,3 +1,19 @@
+export interface User {
+    _id: string;
+    username: string;
+    email: string;
+    role: 'user' | 'admin';
+    createdAt: string;
+    savedCrosshairs?: string[];
+    savedSkins?: (string | any)[];
+    savedSquads?: string[];
+}
+
+export interface AuthResponse {
+    result: User;
+    token: string;
+}
+
 export interface Agent {
     uuid: string;
     displayName: string;
@@ -161,6 +177,76 @@ export const fetchContentTiers = async (): Promise<ContentTier[]> => {
         console.error("Failed to fetch content tiers", e);
         return [];
     }
+};
+
+export const toggleSavedCrosshair = async (crosshairId: string, token: string) => {
+    const response = await fetch(`${BASE_URL}/user/saved-crosshairs`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+        body: JSON.stringify({ crosshairId })
+    });
+    if (!response.ok) {
+        if (response.status === 401) throw new Error("Unauthorized");
+        throw new Error("Failed to save crosshair");
+    }
+    return response.json();
+};
+
+export const getSavedCrosshairs = async (token: string) => {
+    const response = await fetch(`${BASE_URL}/user/saved-crosshairs`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+    });
+    return response.json();
+};
+
+// --- SKINS ---
+export const toggleSavedSkin = async (skinId: string, token: string) => {
+    const response = await fetch(`${BASE_URL}/user/saved-skins`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+        body: JSON.stringify({ skinId })
+    });
+    if (!response.ok) {
+        if (response.status === 401) throw new Error("Unauthorized");
+        throw new Error("Failed to save skin");
+    }
+    return response.json();
+};
+
+export const getSavedSkins = async (token: string) => {
+    const response = await fetch(`${BASE_URL}/user/saved-skins`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+    });
+    return response.json();
+};
+
+// --- SQUADS ---
+export const saveSquad = async (squadData: { name: string, map: string, agents: string[] }, token: string) => {
+    const response = await fetch(`${BASE_URL}/user/saved-squads`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+        body: JSON.stringify(squadData)
+    });
+    if (!response.ok) {
+        if (response.status === 401) throw new Error("Unauthorized");
+        throw new Error("Failed to save squad");
+    }
+    return response.json();
+};
+
+export const getSavedSquads = async (token: string) => {
+    const response = await fetch(`${BASE_URL}/user/saved-squads`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+    });
+    return response.json();
+};
+
+export const deleteSavedSquad = async (squadId: string, token: string) => {
+    const response = await fetch(`${BASE_URL}/user/saved-squads/${squadId}`, {
+        method: 'DELETE',
+        headers: { 'Authorization': `Bearer ${token}` }
+    });
+    return response.json();
 };
 
 export const triggerSync = async () => {

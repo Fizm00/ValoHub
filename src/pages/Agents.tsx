@@ -1,37 +1,26 @@
-import { useEffect, useState, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import Section from '../components/ui/Section';
 import { TechCard } from '../components/ui/TechCard';
-import { fetchAgents, type Agent } from '../services/api';
+import { type Agent } from '../services/api';
+import { useAgents } from '../hooks/useValoData';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search } from 'lucide-react';
 import AgentDetailModal from '../components/agents/AgentDetailModal';
 import { cn } from '../lib/utils';
 
 const Agents = () => {
-    const [agents, setAgents] = useState<Agent[]>([]);
-    const [loading, setLoading] = useState(true);
+    const { data: rawAgents = [], isLoading: loading } = useAgents();
     const [selectedAgent, setSelectedAgent] = useState<Agent | null>(null);
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedRole, setSelectedRole] = useState<string | null>(null);
 
-    useEffect(() => {
-        const loadAgents = async () => {
-            try {
-                const data = await fetchAgents();
-                const uniqueAgents = data.filter((agent, index, self) =>
-                    index === self.findIndex((t) => (
-                        t.displayName === agent.displayName
-                    )) && agent.isPlayableCharacter
-                );
-                setAgents(uniqueAgents);
-            } catch (error) {
-                console.error("Failed to load agents", error);
-            } finally {
-                setLoading(false);
-            }
-        };
-        loadAgents();
-    }, []);
+    const agents = useMemo(() => {
+        return rawAgents.filter((agent, index, self) =>
+            index === self.findIndex((t) => (
+                t.displayName === agent.displayName
+            )) && agent.isPlayableCharacter
+        );
+    }, [rawAgents]);
 
     const filteredAgents = useMemo(() => {
         return agents.filter(agent => {
